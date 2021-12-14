@@ -1,7 +1,35 @@
 import React from 'react';
+import api from '../utils/api';
 
 function Main(props) {
 
+  const [userName, setUserName] = React.useState('');
+  const [userDescription, setUserDescription] = React.useState('');
+  const [userAvatar, setUserAvatar] = React.useState('');
+
+  function setDefaultUserName(name) {
+    setUserName(name)
+  }
+
+  function setDefaultUserDesc(desc) {
+    setUserDescription(desc)
+  }
+
+  function setDefaultUserAvatar(avatar) {
+    setUserAvatar(avatar)
+  }
+
+  let userId = null;
+
+  React.useEffect(() => {
+    api.getUserInfo()
+      .then((userData) => {
+        userId = userData._id;
+        setDefaultUserName(userData.name);
+        setDefaultUserDesc(userData.about);
+        setDefaultUserAvatar(userData.avatar);
+      })
+  }, [])
   //вернули разметку
   return (
     <>
@@ -9,12 +37,12 @@ function Main(props) {
         <section className='profile page__profile'>
           <div className='profile__container'>
             <button className='profile__image-edit' onClick={props.onEditAvatar}>
-              <img className='profile__image' src='#' alt='Фото пользователя' />
+              <img className='profile__image' src={`${userAvatar}`} alt='Фото пользователя' />
             </button>
             <div className='profile__info'>
-              <h1 className='profile__name'>Жак-Ив-Кусто</h1>
+              <h1 className='profile__name'>{userName}</h1>
               <button className='profile__edit link' type='button' aria-label='Редактировать данные профиля' onClick={props.onEditProfile}></button>
-              <p className='profile__desc'>Исследователь океана</p>
+              <p className='profile__desc'>{userDescription}</p>
             </div>
           </div>
           <button className='profile__button link' type='button' aria-label='Добавить новую карточку' onClick={props.onAddPlace}></button>
