@@ -1,0 +1,22 @@
+import React from "react";
+
+function PopupWithFrom(props) {
+
+  //вернули разметку
+  return (
+    <>
+      <div className={props.isOpen ? (`popup popup_type_${props.name} popup_opened`) : (`popup popup_type_${props.name}`)} onMouseDown ={props.onClose}>
+        <div className='popup__container' onMouseDown ={(evt) => evt.stopPropagation()}>
+          <button className='popup__close link' type='button' aria-label='Закрыть форму' onClick={props.onClose}></button>
+          <form className={`popup__form form form_type_${props.name}`} name={`form-${props.name}`} noValidate>
+            <h2 className="form__title">{`${props.title}`}</h2>
+            {props.children}
+            <button className="form__button" type="submit" onClick={props.onClose}>{props.textOfButton}</button>
+          </form>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default PopupWithFrom;
