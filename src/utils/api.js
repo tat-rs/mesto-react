@@ -13,17 +13,15 @@ class Api {
     return Promise.reject(`Ошибка: ${res.status}`); //возвращаем статус ошибки
   };
 
-  /* //метод, получающий список всех карточек с сервера
+   //метод, получающий список всех карточек с сервера
   getAllCards() {
     return fetch(`${this._url}cards`, {
       method: "GET",
-      headers: {
-        authorization: this._key,
-        "content-type": "application/json",
-      }
+      headers: this._headers,
     })
     .then(this._checkResponse)
   }
+  /*
 
   //метод добавления новой карточки на страницу
   addNewCard(newCard) {

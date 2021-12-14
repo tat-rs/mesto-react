@@ -83,7 +83,7 @@ function App() {
 
       </PopupWithFrom>
 
-      <template className='cards-template'>
+      {/* <template className='cards-template'>
         <li className='cards__item'>
           <button className='cards__delete' type='button' aria-label='Удалить'></button>
           <img className='cards__image' src='#' alt='' />
@@ -95,7 +95,7 @@ function App() {
             </div>
           </div>
         </li>
-      </template>
+      </template> */}
 
     </div>
   );

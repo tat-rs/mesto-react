@@ -7,17 +7,7 @@ function Main(props) {
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
 
-  function setDefaultUserName(name) {
-    setUserName(name)
-  }
-
-  function setDefaultUserDesc(desc) {
-    setUserDescription(desc)
-  }
-
-  function setDefaultUserAvatar(avatar) {
-    setUserAvatar(avatar)
-  }
+  const [cards, setCards] = React.useState([]);
 
   let userId = null;
 
@@ -25,11 +15,21 @@ function Main(props) {
     api.getUserInfo()
       .then((userData) => {
         userId = userData._id;
-        setDefaultUserName(userData.name);
-        setDefaultUserDesc(userData.about);
-        setDefaultUserAvatar(userData.avatar);
+        setUserName(userData.name);
+        setUserDescription(userData.about);
+        setUserAvatar(userData.avatar);
       })
+      .catch(err => console.log(err))
   }, [])
+
+  React.useEffect(() => {
+    api.getAllCards()
+      .then((cardData) => {
+        setCards(cardData)
+      })
+      .catch(err => console.log(err))
+  }, [])
+
   //вернули разметку
   return (
     <>
@@ -50,7 +50,20 @@ function Main(props) {
 
           <section className='cards page__cards' aria-label='Карточки с изображениями'>
             <ul className='cards__list'>
-
+              
+              {cards.map((card, i) => (
+                <li className='cards__item' key={i}>
+                <button className='cards__delete' type='button' aria-label='Удалить'></button>
+                <img className='cards__image' src={`${card.link}`} alt={`${card.name}`} />
+                <div className='cards__desc'>
+                  <h2 className='cards__subtitle'>{card.name}</h2>
+                  <div className='cards__container-likes'>
+                    <button className='cards__button' type='button' aria-label='Лайк'></button>
+                    <p className='cards__sum-likes'>{card.likes.length}</p>
+                  </div>
+                </div>
+              </li>
+              ))}
             </ul>
           </section>
       </main>
