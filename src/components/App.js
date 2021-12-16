@@ -28,18 +28,6 @@ function App() {
     return setIsAddPlacePopupOpen(!isAddPlacePopupOpen)
   }
   
-  /* const [allPopups, setAllPopups] = React.useState([
-    {state: isEditAvatarPopupOpen},
-    {state: isEditProfilePopupOpen},
-    {state: isAddPlacePopupOpen},
-  ]) */
-
-  /* const [allPopups, setAllPopups] = React.useState([
-    {state: handleEditAvatarClick},
-    {state: handleEditProfileClick},
-    {state: handleAddPlaceClick},
-  ])
- */
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false)
     setIsEditProfilePopupOpen(false)

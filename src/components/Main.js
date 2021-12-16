@@ -1,5 +1,6 @@
 import React from 'react';
 import api from '../utils/api';
+import Card from './Card';
 
 function Main(props) {
 
@@ -51,18 +52,8 @@ function Main(props) {
           <section className='cards page__cards' aria-label='Карточки с изображениями'>
             <ul className='cards__list'>
               
-              {cards.map((card, i) => (
-                <li className='cards__item' key={i}>
-                <button className='cards__delete' type='button' aria-label='Удалить'></button>
-                <img className='cards__image' src={`${card.link}`} alt={`${card.name}`} />
-                <div className='cards__desc'>
-                  <h2 className='cards__subtitle'>{card.name}</h2>
-                  <div className='cards__container-likes'>
-                    <button className='cards__button' type='button' aria-label='Лайк'></button>
-                    <p className='cards__sum-likes'>{card.likes.length}</p>
-                  </div>
-                </div>
-              </li>
+              {cards.map((card) => (
+                <Card card={card}/>
               ))}
             </ul>
           </section>
