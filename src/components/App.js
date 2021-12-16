@@ -4,6 +4,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithFrom from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 
 function App() {
 
@@ -12,6 +13,8 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
 
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+
+  const [selectedCard, setSelectedCard] = React.useState({name: '', link: ''})
   
   //обработчик открытия попапа редактирования аватара профиля
   function handleEditAvatarClick() {
@@ -28,11 +31,17 @@ function App() {
     return setIsAddPlacePopupOpen(!isAddPlacePopupOpen)
   }
   
+  function handleCardClick(card) {
+    setSelectedCard({name: card.name, link: card.link})
+  }
+
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false)
     setIsEditProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
+    setSelectedCard({name: '', link: ''})
   }
+  
 
   return (
     <div className='page__content'>
@@ -42,6 +51,7 @@ function App() {
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
+        onCardClick={handleCardClick}
       />
 
       <Footer />
@@ -71,19 +81,7 @@ function App() {
 
       </PopupWithFrom>
 
-      {/* <template className='cards-template'>
-        <li className='cards__item'>
-          <button className='cards__delete' type='button' aria-label='Удалить'></button>
-          <img className='cards__image' src='#' alt='' />
-          <div className='cards__desc'>
-            <h2 className='cards__subtitle'></h2>
-            <div className='cards__container-likes'>
-              <button className='cards__button' type='button' aria-label='Лайк'></button>
-              <p className='cards__sum-likes'></p>
-            </div>
-          </div>
-        </li>
-      </template> */}
+      <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
 
     </div>
   );
