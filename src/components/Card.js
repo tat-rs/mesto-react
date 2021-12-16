@@ -8,7 +8,7 @@ function Card(props) {
   //вернули разметку
   return (
     <>
-      <li className='cards__item' /* key={i} */>
+      <li className='cards__item'>
         <button className='cards__delete' type='button' aria-label='Удалить'></button>
         <img className='cards__image' src={`${props.card.link}`} alt={`${props.card.name}`} onClick={handleClick} />
         <div className='cards__desc'>

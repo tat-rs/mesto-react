@@ -10,12 +10,9 @@ function Main(props) {
 
   const [cards, setCards] = React.useState([]);
 
-  let userId = null;
-
   React.useEffect(() => {
     api.getUserInfo()
       .then((userData) => {
-        userId = userData._id;
         setUserName(userData.name);
         setUserDescription(userData.about);
         setUserAvatar(userData.avatar);
@@ -53,7 +50,7 @@ function Main(props) {
             <ul className='cards__list'>
               
               {cards.map((card) => (
-                <Card card={card} onCardClick={props.onCardClick}/>
+                <Card card={card} key={card._id} onCardClick={props.onCardClick}/>
               ))}
             </ul>
           </section>

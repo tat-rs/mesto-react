@@ -5,7 +5,7 @@ function PopupWithFrom(props) {
   //вернули разметку
   return (
     <>
-      <div className={props.isOpen ? (`popup popup_type_${props.name} popup_opened`) : (`popup popup_type_${props.name}`)} onMouseDown ={props.onClose}>
+      <div className={`popup popup_type_${props.name} ${props.isOpen && 'popup_opened'}`} onMouseDown ={props.onClose}>
         <div className='popup__container' onMouseDown ={(evt) => evt.stopPropagation()}>
           <button className='popup__close link' type='button' aria-label='Закрыть форму' onClick={props.onClose}></button>
           <form className={`popup__form form form_type_${props.name}`} name={`form-${props.name}`} noValidate>
