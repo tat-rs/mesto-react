@@ -1,6 +1,6 @@
 import React from "react";
 
-function PopupWithFrom(props) {
+function PopupWithForm(props) {
 
   return (
     <>
@@ -18,4 +18,4 @@ function PopupWithFrom(props) {
   );
 }
 
-export default PopupWithFrom;
+export default PopupWithForm;

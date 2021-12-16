@@ -3,7 +3,7 @@ import '../index.css';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithFrom from './PopupWithForm';
+import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
 function App() {
@@ -58,30 +58,30 @@ function App() {
 
       <Footer />
 
-      <PopupWithFrom name='edit' title='Редактировать профиль' textOfButton='Сохранить' isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+      <PopupWithForm name='edit' title='Редактировать профиль' textOfButton='Сохранить' isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
 
         <input className="form__item form__item_type_name" id="name-profile" type="text" name="name" placeholder="Имя" minLength="2" maxLength="40" required />
         <span className="form__error name-profile-error"></span>
         <input className="form__item form__item_type_desc" id="desc-profile" type="text" name="about" placeholder="О себе" minLength="2" maxLength="200" required />
         <span className="form__error desc-profile-error"></span>
 
-      </PopupWithFrom>
+      </PopupWithForm>
 
-      <PopupWithFrom name='new-card' title='Новое место' textOfButton='Создать' isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
+      <PopupWithForm name='new-card' title='Новое место' textOfButton='Создать' isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
 
         <input className="form__item form__item_type_image-subtitle" id="image-subtitle" type="text" name="subtitle" placeholder="Название" minLength="2" maxLength="30" required />
         <span className="form__error image-subtitle-error"></span>
         <input className="form__item form__item_type_image-link" id="image-link" type="url" name="link" placeholder="Ссылка на картинку" required />
         <span className="form__error image-link-error"></span>
 
-      </PopupWithFrom>
+      </PopupWithForm>
 
-      <PopupWithFrom name='edit-avatar' title='Обновить аватар' textOfButton='Сохранить' isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
+      <PopupWithForm name='edit-avatar' title='Обновить аватар' textOfButton='Сохранить' isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
 
         <input className="form__item form__item_type_image-link" id="avatar-link" type="url" name="avatar" placeholder="Ссылка на фото профиля" required />
         <span className="form__error avatar-link-error"></span>
 
-      </PopupWithFrom>
+      </PopupWithForm>
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
 
