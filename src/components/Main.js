@@ -4,12 +4,13 @@ import Card from './Card';
 
 function Main(props) {
 
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
+  const [userName, setUserName] = React.useState('');//хук состояния имени профиля
+  const [userDescription, setUserDescription] = React.useState(''); //хук состояния "о себе"
+  const [userAvatar, setUserAvatar] = React.useState(''); //хук состояния аватара профиля
 
-  const [cards, setCards] = React.useState([]);
+  const [cards, setCards] = React.useState([]);//хук состояния карточки
 
+  //получили данные пользователя
   React.useEffect(() => {
     api.getUserInfo()
       .then((userData) => {
@@ -20,6 +21,7 @@ function Main(props) {
       .catch(err => console.log(err))
   }, [])
 
+  //получили массив карточек
   React.useEffect(() => {
     api.getAllCards()
       .then((cardData) => {
@@ -28,7 +30,7 @@ function Main(props) {
       .catch(err => console.log(err))
   }, [])
 
-  //вернули разметку
+  
   return (
     <>
       <main className='content page__section'>

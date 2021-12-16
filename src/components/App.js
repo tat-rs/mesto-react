@@ -8,13 +8,13 @@ import ImagePopup from './ImagePopup';
 
 function App() {
 
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false); //состояние попапа "обновить аватар"
 
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false); //состояние попапа "редактировать профиль"
 
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false); //состояние попапа "добавить карточку"
 
-  const [selectedCard, setSelectedCard] = React.useState({name: '', link: ''})
+  const [selectedCard, setSelectedCard] = React.useState({name: '', link: ''}) //состояние попапа с изображением
   
   //обработчик открытия попапа редактирования аватара профиля
   function handleEditAvatarClick() {
@@ -31,10 +31,12 @@ function App() {
     return setIsAddPlacePopupOpen(!isAddPlacePopupOpen)
   }
   
+  //обработчик клика по карточке
   function handleCardClick(card) {
     setSelectedCard({name: card.name, link: card.link})
   }
 
+  //сброс состояний переменных
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false)
     setIsEditProfilePopupOpen(false)

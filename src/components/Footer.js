@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Footer() {
-  //вернули разметку
+ 
   return (
     <>
       <footer className='footer page__section'>

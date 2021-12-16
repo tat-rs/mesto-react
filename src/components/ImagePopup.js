@@ -1,7 +1,7 @@
 import React from "react";
 
 function ImagePopup(props) {
-  //вернули разметку
+  
   return (
     <>
       <div className={`popup popup_type_image ${props.card.link && 'popup_opened'}`} onClick={props.onClose}>
