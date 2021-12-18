@@ -14,7 +14,7 @@ function App() {
 
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false); //состояние попапа "добавить карточку"
 
-  const [selectedCard, setSelectedCard] = React.useState({name: '', link: ''}) //состояние попапа с изображением
+  const [selectedCard, setSelectedCard] = React.useState({}) //состояние попапа с изображением
   
   //обработчик открытия попапа редактирования аватара профиля
   function handleEditAvatarClick() {
@@ -33,7 +33,7 @@ function App() {
   
   //обработчик клика по карточке
   function handleCardClick(card) {
-    setSelectedCard({name: card.name, link: card.link})
+    setSelectedCard(card)
   }
 
   //сброс состояний переменных
@@ -41,7 +41,7 @@ function App() {
     setIsEditAvatarPopupOpen(false)
     setIsEditProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
-    setSelectedCard({name: '', link: ''})
+    setSelectedCard({})
   }
   
 

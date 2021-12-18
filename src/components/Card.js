@@ -1,10 +1,12 @@
 import React from "react";
 
 function Card(props) {
-
   //сохранение данных карточки при клике
   function handleClick() {
-    props.onCardClick({name: props.card.name, link: props.card.link})
+    props.onCardClick({
+      name: props.card.name, 
+      link: props.card.link
+    })
   }
   
   return (
