@@ -18,17 +18,17 @@ function App() {
   
   //обработчик открытия попапа редактирования аватара профиля
   function handleEditAvatarClick() {
-    return setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+    setIsEditAvatarPopupOpen(true);
   }
 
   //обработчик открытия попапа редактирования профиля
   function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(!isEditProfilePopupOpen)
+    setIsEditProfilePopupOpen(true)
   }
 
   //обработчик открытия попапа добавления новой карточки
   function handleAddPlaceClick() {
-    return setIsAddPlacePopupOpen(!isAddPlacePopupOpen)
+    setIsAddPlacePopupOpen(true)
   }
   
   //обработчик клика по карточке
