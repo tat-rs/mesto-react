@@ -18,6 +18,16 @@ function Main(props) {
       .catch(err => console.log(err))
   }, [])
 
+  function handleCardLike(card) {
+    
+    const isLiked = card.likes.some(i => i._id === currentUserData._id); // проверяем, есть ли уже лайк на этой карточке
+    
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    });
+  }
   
   return (
     <>
@@ -40,7 +50,7 @@ function Main(props) {
             <ul className='cards__list'>
               
               {cards.map((card) => (
-                <Card card={card} key={card._id} onCardClick={props.onCardClick}/>
+                <Card card={card} key={card._id} onCardClick={props.onCardClick} onCardLike={handleCardLike}/>
               ))}
             </ul>
           </section>

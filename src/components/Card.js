@@ -3,12 +3,17 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 function Card(props) {
 
+
    //сохранение данных карточки при клике
    function handleClick() {
     props.onCardClick({
       name: props.card.name, 
       link: props.card.link
     })
+  }
+
+  function handleLikeClick() {
+    props.onCardLike(props.card)
   }
 
   const currentUserData = React.useContext(CurrentUserContext); // подписались на контекст текущих данных пользователя
@@ -29,7 +34,7 @@ function Card(props) {
         <div className='cards__desc'>
           <h2 className='cards__subtitle'>{props.card.name}</h2>
           <div className='cards__container-likes'>
-            <button className={cardLikeButtonClassName} type='button' aria-label='Лайк'></button>
+            <button className={cardLikeButtonClassName} type='button' aria-label='Лайк' onClick={handleLikeClick} ></button>
             <p className='cards__sum-likes'>{props.card.likes.length}</p>
           </div>
         </div>

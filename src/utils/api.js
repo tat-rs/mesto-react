@@ -21,29 +21,6 @@ class Api {
     })
     .then(this._checkResponse)
   }
-  /*
-
-  //метод добавления новой карточки на страницу
-  addNewCard(newCard) {
-    return fetch(`${this._url}cards`, {
-      method: "POST",
-      headers: this._headers,
-      body: JSON.stringify({
-        name: newCard.subtitle, //новое описание
-        link: newCard.link, //новая ссыока
-      })
-    })
-    .then(this._checkResponse)
-  }
-
-  //метод удаления карточки со страницы
-  deleteCard(cardId) {
-    return fetch(`${this._url}cards/${cardId}`, {
-      method: "DELETE",
-      headers: this._headers,
-    })
-    .then(this._checkResponse)
-  } */
 
   //получаем данные пользователя
   getUserInfo() {
@@ -54,48 +31,14 @@ class Api {
     .then(this._checkResponse)
   }
 
-  /* //метод редактирования данных пользователя
-  editUserInfo(info) {
-    return fetch(`${this._url}users/me`, {
-      method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify({
-        name: info.name,
-        about: info.about,
-      })
-    })
-    .then(this._checkResponse)
-  }
-
-  //метод редактирования фото профиля
-  editUserAvatar(userAvatar) {
-    return fetch(`${this._url}users/me/avatar/`, {
-      method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify({
-        avatar: userAvatar.avatar,
-      })
-    })
-    .then(this._checkResponse)
-  }
-
-  //метод постановки лайка
-  setCardlike(cardId) {
+  //метод постановки лайка и дизлайка
+  changeLikeCardStatus(cardId, isLiked) {
     return fetch(`${this._url}cards/likes/${cardId}`, {
-      method: "PUT",
+      method: isLiked ? "PUT" : "DELETE",
       headers: this._headers,
     })
     .then(this._checkResponse)
   }
-
-  //метод удаления лайка
-  deleteCardlike(cardId) {
-    return fetch(`${this._url}cards/likes/${cardId}`, {
-      method: "DELETE",
-      headers: this._headers,
-    })
-    .then(this._checkResponse)
-  }*/
 }
  
 const api = new Api({
