@@ -1,25 +1,13 @@
 import React from 'react';
 import api from '../utils/api';
 import Card from './Card';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 function Main(props) {
 
-  const [userName, setUserName] = React.useState('');//хук состояния имени профиля
-  const [userDescription, setUserDescription] = React.useState(''); //хук состояния "о себе"
-  const [userAvatar, setUserAvatar] = React.useState(''); //хук состояния аватара профиля
+  const [cards, setCards] = React.useState([]);//хук состояния карточки 
 
-  const [cards, setCards] = React.useState([]);//хук состояния карточки
-
-  //получили данные пользователя
-  React.useEffect(() => {
-    api.getUserInfo()
-      .then((userData) => {
-        setUserName(userData.name);
-        setUserDescription(userData.about);
-        setUserAvatar(userData.avatar);
-      })
-      .catch(err => console.log(err))
-  }, [])
+  const currentUserData = React.useContext(CurrentUserContext); //подключаем контект текущих данных пользователя
 
   //получили массив карточек
   React.useEffect(() => {
@@ -37,12 +25,12 @@ function Main(props) {
         <section className='profile page__profile'>
           <div className='profile__container'>
             <button className='profile__image-edit' onClick={props.onEditAvatar}>
-              <img className='profile__image' src={`${userAvatar}`} alt='Фото пользователя' />
+              <img className='profile__image' src={currentUserData.avatar} alt='Фото пользователя' />
             </button>
             <div className='profile__info'>
-              <h1 className='profile__name'>{userName}</h1>
+              <h1 className='profile__name'>{currentUserData.name}</h1>
               <button className='profile__edit link' type='button' aria-label='Редактировать данные профиля' onClick={props.onEditProfile}></button>
-              <p className='profile__desc'>{userDescription}</p>
+              <p className='profile__desc'>{currentUserData.about}</p>
             </div>
           </div>
           <button className='profile__button link' type='button' aria-label='Добавить новую карточку' onClick={props.onAddPlace}></button>
