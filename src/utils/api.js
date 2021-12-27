@@ -31,6 +31,19 @@ class Api {
     .then(this._checkResponse)
   }
 
+  //метод редактирования данных пользователя
+  editUserInfo(info) {
+    return fetch(`${this._url}users/me`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: info.name,
+        about: info.about,
+      })
+    })
+    .then(this._checkResponse)
+  }
+
   //метод постановки лайка и дизлайка
   changeLikeCardStatus(cardId, isLiked) {
     return fetch(`${this._url}cards/likes/${cardId}`, {
