@@ -18,15 +18,24 @@ function Main(props) {
       .catch(err => console.log(err))
   }, [])
 
+  //функция постановки лайка/дизлайк
   function handleCardLike(card) {
-    
-    const isLiked = card.likes.some(i => i._id === currentUserData._id); // проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(element => element._id === currentUserData._id); // проверяем, есть ли уже лайк на этой карточке
     
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+        setCards((state) => state.map((element) => element._id === card._id ? newCard : element));
     });
+  }
+  
+  //функция удаления карточки
+  function handleCardDelete(card) {
+    // Отправляем запрос в API и получаем обновлённые массив карточек
+    api.deleteCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter(element => element._id !== card._id))
+      })
   }
   
   return (
@@ -50,7 +59,7 @@ function Main(props) {
             <ul className='cards__list'>
               
               {cards.map((card) => (
-                <Card card={card} key={card._id} onCardClick={props.onCardClick} onCardLike={handleCardLike}/>
+                <Card card={card} key={card._id} onCardClick={props.onCardClick} onCardLike={handleCardLike} onCardDelete={handleCardDelete}/>
               ))}
             </ul>
           </section>

@@ -39,6 +39,15 @@ class Api {
     })
     .then(this._checkResponse)
   }
+
+  //метод удаления карточки со страницы
+  deleteCard(cardId) {
+    return fetch(`${this._url}cards/${cardId}`, {
+      method: "DELETE",
+      headers: this._headers,
+    })
+    .then(this._checkResponse)
+  }
 }
  
 const api = new Api({

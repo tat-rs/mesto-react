@@ -3,7 +3,6 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 function Card(props) {
 
-
    //сохранение данных карточки при клике
    function handleClick() {
     props.onCardClick({
@@ -14,6 +13,10 @@ function Card(props) {
 
   function handleLikeClick() {
     props.onCardLike(props.card)
+  }
+
+  function handleDeleteClick() {
+    props.onCardDelete (props.card)
   }
 
   const currentUserData = React.useContext(CurrentUserContext); // подписались на контекст текущих данных пользователя
@@ -29,7 +32,7 @@ function Card(props) {
   return (
     <>
       <li className='cards__item'>
-        <button className={cardDeleteButtonClassName} type='button' aria-label='Удалить'></button>
+        <button className={cardDeleteButtonClassName} type='button' aria-label='Удалить' onClick={handleDeleteClick}></button>
         <img className='cards__image' src={`${props.card.link}`} alt={`${props.card.name}`} onClick={handleClick} />
         <div className='cards__desc'>
           <h2 className='cards__subtitle'>{props.card.name}</h2>
