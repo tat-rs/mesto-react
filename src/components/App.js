@@ -6,6 +6,7 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -66,6 +67,8 @@ function App() {
     })
     .catch(err => console.log(err))
   }
+
+
   return (
     <div className='page__content'>
       <CurrentUserContext.Provider value={currentUser}>
@@ -91,12 +94,7 @@ function App() {
 
         </PopupWithForm>
 
-        <PopupWithForm name='edit-avatar' title='Обновить аватар' textOfButton='Сохранить' isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
-
-          <input className="form__item form__item_type_image-link" id="avatar-link" type="url" name="avatar" placeholder="Ссылка на фото профиля" required />
-          <span className="form__error avatar-link-error"></span>
-
-        </PopupWithForm>
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
 
         <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
 

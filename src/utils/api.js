@@ -61,6 +61,19 @@ class Api {
     })
     .then(this._checkResponse)
   }
+
+  //метод редактирования фото профиля
+  setUserAvatar(user) {
+    return fetch(`${this._url}users/me/avatar/`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: user.avatar,
+      })
+    })
+    .then(this._checkResponse)
+  }
+
 }
  
 const api = new Api({
