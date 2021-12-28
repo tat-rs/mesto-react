@@ -26,7 +26,8 @@ function Main(props) {
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
         setCards((state) => state.map((element) => element._id === card._id ? newCard : element));
-    });
+    })
+      .catch(err => console.log(err))
   }
   
   //функция удаления карточки

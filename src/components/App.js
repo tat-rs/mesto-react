@@ -58,6 +58,14 @@ function App() {
       .catch(err => console.log(err))
   }, [])
 
+  function handleUpdateUser(data) {
+    api.setUserInfo(data)
+    .then((userData) => {
+      setCurrentUser(userData);
+      closeAllPopups()
+    })
+    .catch(err => console.log(err))
+  }
   return (
     <div className='page__content'>
       <CurrentUserContext.Provider value={currentUser}>
@@ -72,7 +80,7 @@ function App() {
 
         <Footer />
 
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
         <PopupWithForm name='new-card' title='Новое место' textOfButton='Создать' isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} >
 

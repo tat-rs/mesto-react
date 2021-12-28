@@ -32,7 +32,7 @@ class Api {
   }
 
   //метод редактирования данных пользователя
-  editUserInfo(info) {
+  setUserInfo(info) {
     return fetch(`${this._url}users/me`, {
       method: "PATCH",
       headers: this._headers,
