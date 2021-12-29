@@ -3,7 +3,7 @@ import '../index.css';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
+import AddPlacePopup from './AddPlacePopup ';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -21,6 +21,8 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({}) //состояние попапа с изображением
 
   const [currentUser, setCurrentUser] = React.useState({}); //стейт текущих данных пользователя
+
+  const [cards, setCards] = React.useState([]);//хук состояния карточки 
   
   //обработчик открытия попапа редактирования аватара профиля
   function handleEditAvatarClick() {
@@ -49,36 +51,80 @@ function App() {
     setIsAddPlacePopupOpen(false)
     setSelectedCard({})
   }
-  
+  //получили массив карточек
+  React.useEffect(() => {
+    // Отправляем запрос в API и получаем первоначальный массив карточек
+    api.getAllCards()
+    .then((cardData) => {
+      setCards(cardData)
+    })
+    .catch(err => console.log(err))
+  }, [])
+
   //получили данные пользователя
   React.useEffect(() => {
+    // Отправляем запрос в API и получаем обновлённые данные пользователя
     api.getUserInfo()
-      .then((userData) => {
-        setCurrentUser(userData);
-      })
-      .catch(err => console.log(err))
+    .then((userData) => {
+      setCurrentUser(userData); //обновили данные текущего пользователя
+    })
+    .catch(err => console.log(err))
   }, [])
 
   //обновление данных пользователя(имя, описание)
   function handleUpdateUser(data) {
+    // Отправляем запрос в API и получаем отредактированные данные пользователя
     api.setUserInfo(data)
     .then((userData) => {
       setCurrentUser(userData);
-      closeAllPopups()
+      closeAllPopups();
     })
     .catch(err => console.log(err))
   }
 
   //обновление аватара пользователя
   function handleUpdateAvatar(data) {
+    // Отправляем запрос в API и получаем обновленный аватар пользователя
     api.setUserAvatar(data)
     .then((userData) => {
-      setCurrentUser(userData);
-      closeAllPopups()
+      setCurrentUser(userData); //обновили ccылку на аватар пользователя
+      closeAllPopups();
     })
     .catch(err => console.log(err))
   }
 
+  //функция постановки лайка/дизлайк
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(element => element._id === currentUser._id); // проверяем, поставлен ли лайк пользователем на карточке
+    
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.changeLikeCardStatus(card._id, !isLiked)
+    .then((newCard) => {
+      setCards((state) => state.map((element) => element._id === card._id ? newCard : element));
+    })
+    .catch(err => console.log(err))
+  }
+  
+  //функция удаления карточки
+  function handleCardDelete(card) {
+    // Отправляем запрос в API и получаем обновлённые массив карточек
+    api.deleteCard(card._id)
+    .then(() => {
+      setCards((state) => state.filter(element => element._id !== card._id)) //отфильтровали карточки по которым айди не совпали при клике на удаление
+    })
+    .catch(err => console.log(err))
+  }
+
+  //функция добавления карточки
+  function handleAddPlaceSubmit(card) {
+    // Отправляем запрос в API и получаем обновлённый массив карточек
+    api.addNewCard(card)
+    .then((newAddPlace) => {
+      setCards([newAddPlace, ...cards]); //обновили стейт карточек
+      closeAllPopups();
+    })
+    .catch(err => console.log(err))
+  }
 
   return (
     <div className='page__content'>
@@ -90,20 +136,16 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onCardClick={handleCardClick}
+          cards={cards}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         />
 
         <Footer />
 
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
-        <PopupWithForm name='new-card' title='Новое место' textOfButton='Создать' isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} >
-
-          <input className="form__item form__item_type_image-subtitle" id="image-subtitle" type="text" name="subtitle" placeholder="Название" minLength="2" maxLength="30" required />
-          <span className="form__error image-subtitle-error"></span>
-          <input className="form__item form__item_type_image-link" id="image-link" type="url" name="link" placeholder="Ссылка на картинку" required />
-          <span className="form__error image-link-error"></span>
-
-        </PopupWithForm>
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit}/>
 
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
 

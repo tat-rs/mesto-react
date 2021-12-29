@@ -2,21 +2,21 @@ import React from "react";
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 function Card(props) {
-
-   //сохранение данных карточки при клике
-   function handleClick() {
+    
+  //сохранение данных карточки при клике
+  function handleClick() {
     props.onCardClick({
       name: props.card.name, 
       link: props.card.link
     })
   }
-
+  //функция постановки лайка/дизлайка
   function handleLikeClick() {
     props.onCardLike(props.card)
   }
-
+  //функция удаления карточки
   function handleDeleteClick() {
-    props.onCardDelete (props.card)
+    props.onCardDelete(props.card)
   }
 
   const currentUserData = React.useContext(CurrentUserContext); // подписались на контекст текущих данных пользователя

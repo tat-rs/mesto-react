@@ -18,4 +18,4 @@
 * Сборка проекта React, использованы технологии:
     * JSX;
     * Функциональные компоненты;
-    * React hooks(useState, useEffect);
+    * React hooks(useState, useEffect, useRef);

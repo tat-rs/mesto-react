@@ -44,6 +44,31 @@ class Api {
     .then(this._checkResponse)
   }
 
+  //метод редактирования фото профиля
+  setUserAvatar(user) {
+    return fetch(`${this._url}users/me/avatar/`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: user.avatar,
+      })
+    })
+    .then(this._checkResponse)
+  }
+
+  //метод добавления новой карточки на страницу
+  addNewCard(newCard) {
+    return fetch(`${this._url}cards`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: newCard.subtitle, //новое описание
+        link: newCard.link, //новая ссыока
+      })
+    })
+    .then(this._checkResponse)
+  }
+
   //метод постановки лайка и дизлайка
   changeLikeCardStatus(cardId, isLiked) {
     return fetch(`${this._url}cards/likes/${cardId}`, {
@@ -58,18 +83,6 @@ class Api {
     return fetch(`${this._url}cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    })
-    .then(this._checkResponse)
-  }
-
-  //метод редактирования фото профиля
-  setUserAvatar(user) {
-    return fetch(`${this._url}users/me/avatar/`, {
-      method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify({
-        avatar: user.avatar,
-      })
     })
     .then(this._checkResponse)
   }

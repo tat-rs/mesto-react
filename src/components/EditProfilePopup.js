@@ -4,15 +4,16 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function EditProfilePopup(props) {
 
-  const currentUserData = React.useContext(CurrentUserContext);
+  const currentUserData = React.useContext(CurrentUserContext); //подписываемся на контекст
 
-  const [name, setName] = React.useState('');
-  const [description, setDescription ] = React.useState('');
+  const [name, setName] = React.useState(''); //переменная состояния имени пользователя
+  const [description, setDescription ] = React.useState(''); //переменная состояния описания пользователя
 
+  //изменяем значение описания на вводимое значение в инпут
   function handleDescriptionChange(evt) {
     setDescription(evt.target.value)
   }
-
+  //изменяем значение имени на вводимое значение в инпут
   function handleNameChange(evt) {
     setName(evt.target.value)
   }
@@ -23,11 +24,12 @@ function EditProfilePopup(props) {
     setDescription(currentUserData.about);
   }, [currentUserData]); 
 
+  //функция обновления данных пользователя по сабмиту
   function handleSubmit(evt) {
     // Запрещаем браузеру переходить по адресу формы
     evt.preventDefault();
   
-    // Передаём значения управляемых компонентов во внешний обработчик
+    // Передаём значения имени и описания во внешний обработчик
     props.onUpdateUser({
       name,
       about: description,

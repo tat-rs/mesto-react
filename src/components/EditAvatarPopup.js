@@ -3,9 +3,11 @@ import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup(props) {
 
-  const avatarRef = React.useRef();
+  const avatarRef = React.useRef(); //реф аватара пользователя
 
+  //обновляем аватар по сабмиту
   function handleSubmit(evt) {
+    // отменяем действие браузера по умолчанию
     evt.preventDefault();
   
     props.onUpdateAvatar({

@@ -1,44 +1,11 @@
 import React from 'react';
-import api from '../utils/api';
 import Card from './Card';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 function Main(props) {
 
-  const [cards, setCards] = React.useState([]);//хук состояния карточки 
-
   const currentUserData = React.useContext(CurrentUserContext); //подключаем контект текущих данных пользователя
-
-  //получили массив карточек
-  React.useEffect(() => {
-    api.getAllCards()
-      .then((cardData) => {
-        setCards(cardData)
-      })
-      .catch(err => console.log(err))
-  }, [])
-
-  //функция постановки лайка/дизлайк
-  function handleCardLike(card) {
-    const isLiked = card.likes.some(element => element._id === currentUserData._id); // проверяем, есть ли уже лайк на этой карточке
-    
-    // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card._id, !isLiked)
-      .then((newCard) => {
-        setCards((state) => state.map((element) => element._id === card._id ? newCard : element));
-    })
-      .catch(err => console.log(err))
-  }
-  
-  //функция удаления карточки
-  function handleCardDelete(card) {
-    // Отправляем запрос в API и получаем обновлённые массив карточек
-    api.deleteCard(card._id)
-      .then(() => {
-        setCards((state) => state.filter(element => element._id !== card._id))
-      })
-  }
-  
+ 
   return (
     <>
       <main className='content page__section'>
@@ -59,8 +26,8 @@ function Main(props) {
           <section className='cards page__cards' aria-label='Карточки с изображениями'>
             <ul className='cards__list'>
               
-              {cards.map((card) => (
-                <Card card={card} key={card._id} onCardClick={props.onCardClick} onCardLike={handleCardLike} onCardDelete={handleCardDelete}/>
+              {props.cards.map((card) => (
+                <Card card={card} key={card._id} onCardClick={props.onCardClick} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete}/>
               ))}
             </ul>
           </section>
