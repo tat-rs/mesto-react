@@ -7,7 +7,7 @@ function Header() {
   return (
     <>
       <header className='header page__header'>
-        <a className='logo link' href='#'>
+        <a className='logo link' href='https://tat-rs.github.io/mesto-react/'>
           <img className='header__logo' src={headerLogo} alt="Логотип" />
         </a>
       </header>

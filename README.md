@@ -19,3 +19,5 @@
     * JSX;
     * Функциональные компоненты;
     * React hooks(useState, useEffect, useRef);
+
+[Ссылка на сайт в GitHub Pages](https://tat-rs.github.io/mesto-react/)
