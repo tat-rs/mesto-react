@@ -59,8 +59,19 @@ function App() {
       .catch(err => console.log(err))
   }, [])
 
+  //обновление данных пользователя(имя, описание)
   function handleUpdateUser(data) {
     api.setUserInfo(data)
+    .then((userData) => {
+      setCurrentUser(userData);
+      closeAllPopups()
+    })
+    .catch(err => console.log(err))
+  }
+
+  //обновление аватара пользователя
+  function handleUpdateAvatar(data) {
+    api.setUserAvatar(data)
     .then((userData) => {
       setCurrentUser(userData);
       closeAllPopups()
@@ -94,7 +105,7 @@ function App() {
 
         </PopupWithForm>
 
-        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
 
         <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
 
