@@ -5,6 +5,11 @@ function EditAvatarPopup(props) {
 
   const avatarRef = React.useRef(); //реф аватара пользователя
 
+  //очищаем значение инпутов при монтировании
+  React.useEffect(() => {
+    avatarRef.current.value = '';
+  }, [props.isOpen]);
+
   //обновляем аватар по сабмиту
   function handleSubmit(evt) {
     // отменяем действие браузера по умолчанию
@@ -13,8 +18,6 @@ function EditAvatarPopup(props) {
     props.onUpdateAvatar({
       avatar: avatarRef.current.value,
     });
-
-    avatarRef.current.value = '';
 
   } 
 

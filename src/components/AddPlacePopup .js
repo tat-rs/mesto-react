@@ -16,11 +16,11 @@ function AddPlacePopup(props) {
     setLink(evt.target.value)
   }
   
-  //очищаем значение инпутов
-  function resetForm() {
+  //очищаем значение инпутов при монтировании
+  React.useEffect(() => {
     setSubtitle('');
     setLink('');
-  }
+  }, [props.isOpen]);
 
   //передаем новые значения инпутов по сабмиту
   function handleSubmit(evt) {
@@ -32,8 +32,6 @@ function AddPlacePopup(props) {
       subtitle,
       link,
     });
-
-    resetForm(); //очищаем инпуты
   }
 
   return (

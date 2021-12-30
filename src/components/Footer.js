@@ -1,11 +1,13 @@
 import React from 'react';
 
 function Footer() {
+
+  const currentYear = new Date().getFullYear(); //сохранен текущий год в переменной
  
   return (
     <>
       <footer className='footer page__section'>
-        <p className='footer__author'>&copy; 2020 Mesto Russia</p>
+        <p className='footer__author'>&copy; {currentYear} Mesto Russia</p>
       </footer>
     </>
   );
