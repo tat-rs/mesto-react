@@ -22,7 +22,7 @@ function EditProfilePopup(props) {
   React.useEffect(() => {
     setName(currentUserData.name);
     setDescription(currentUserData.about);
-  }, [currentUserData]); 
+  }, [currentUserData, props.isOpen]); 
 
   //функция обновления данных пользователя по сабмиту
   function handleSubmit(evt) {
