@@ -8,6 +8,7 @@ function EditProfilePopup(props) {
 
   const [name, setName] = React.useState(''); //переменная состояния имени пользователя
   const [description, setDescription ] = React.useState(''); //переменная состояния описания пользователя
+  const [loader, setLoader] = React.useState(props.textOfButton); //начальное значение кнопки
 
   //изменяем значение описания на вводимое значение в инпут
   function handleDescriptionChange(evt) {
@@ -22,7 +23,8 @@ function EditProfilePopup(props) {
   React.useEffect(() => {
     setName(currentUserData.name);
     setDescription(currentUserData.about);
-  }, [currentUserData, props.isOpen]); 
+    setLoader(props.textOfButton);
+  }, [currentUserData, props.isOpen, props.textOfButton]); 
 
   //функция обновления данных пользователя по сабмиту
   function handleSubmit(evt) {
@@ -34,11 +36,13 @@ function EditProfilePopup(props) {
       name,
       about: description,
     });
+
+    setLoader('Сохранение...');
   }
 
   return (
     <>
-      <PopupWithForm name='edit' title='Редактировать профиль' textOfButton='Сохранить' isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
+      <PopupWithForm name='edit' title='Редактировать профиль' textOfButton='Сохранить' isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit} button={loader}>
 
         <input className="form__item form__item_type_name" id="name-profile" type="text" name="name" placeholder="Имя" minLength="2" maxLength="40" value={name || ''} onChange={handleNameChange} required />
         <span className="form__error name-profile-error"></span>
