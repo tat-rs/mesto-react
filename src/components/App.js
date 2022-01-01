@@ -9,6 +9,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import PopupConfirmation from './PopupConfirmation';
 
 function App() {
 
@@ -17,6 +18,8 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false); //состояние попапа "редактировать профиль"
 
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false); //состояние попапа "добавить карточку"
+
+  const [isPopupConfirmationOpen, setIsPopupConfirmationOpen] = React.useState(false); //состояние попапа "подтвердить удаление карточки"
 
   const [selectedCard, setSelectedCard] = React.useState({}) //состояние попапа с изображением
 
@@ -44,12 +47,18 @@ function App() {
     setSelectedCard(card)
   }
 
+  //обработчик открытия попапа подтверждения удаления карточки
+  function handlePopupConfirmationClick() {
+    setIsPopupConfirmationOpen(true)
+  }
+
   //сброс состояний переменных
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false)
     setIsEditProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
     setSelectedCard({})
+    setIsPopupConfirmationOpen(false)
   }
   //получили массив карточек
   React.useEffect(() => {
@@ -111,6 +120,7 @@ function App() {
     api.deleteCard(card._id)
     .then(() => {
       setCards((state) => state.filter(element => element._id !== card._id)) //отфильтровали карточки по которым айди не совпали при клике на удаление
+      closeAllPopups()
     })
     .catch(err => console.log(err))
   }
@@ -138,7 +148,7 @@ function App() {
           onCardClick={handleCardClick}
           cards={cards}
           onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
+          onBtnDelete={handlePopupConfirmationClick}
         />
 
         <Footer />
@@ -150,6 +160,8 @@ function App() {
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} textOfButton='Сохранить' />
 
         <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
+
+        <PopupConfirmation isOpen={isPopupConfirmationOpen} onClose={closeAllPopups} card={selectedCard} textOfButton="Да" removeCard={handleCardDelete}/>
 
       </CurrentUserContext.Provider>
 

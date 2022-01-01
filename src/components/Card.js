@@ -14,9 +14,13 @@ function Card(props) {
   function handleLikeClick() {
     props.onCardLike(props.card)
   }
-  //функция удаления карточки
+  //функция открытия удаления карточки
   function handleDeleteClick() {
-    props.onCardDelete(props.card)
+    props.onBtnDelete() //открытие попапа подтверждения
+    //сохраняем id карточки по которой был клик
+    props.onCardClick({
+      _id: props.card._id,
+    })
   }
 
   const currentUserData = React.useContext(CurrentUserContext); // подписались на контекст текущих данных пользователя
